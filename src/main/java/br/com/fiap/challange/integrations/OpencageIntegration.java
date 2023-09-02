@@ -41,6 +41,11 @@ public class OpencageIntegration {
 				opencageIntegrationModel.setCity(jOpenResult.getComponents().getCity());
 				opencageIntegrationModel.setCounty(jOpenResult.getComponents().getCountry());
 				opencageIntegrationModel.setAddress(jOpenResult.getFormatted());
+				opencageIntegrationModel.setEstado(jOpenResult.getComponents().getState());
+				opencageIntegrationModel.setRua(jOpenResult.getComponents().getRoad());
+				opencageIntegrationModel.setBairro(jOpenResult.getComponents().getSuburb());
+				opencageIntegrationModel.setCep(jOpenResult.getComponents().getPostcode());
+				opencageIntegrationModel.setRegion(jOpenResult.getComponents().getRegion());
 
 			} else {
 				results.forEach((jOpenResult) -> {
@@ -53,6 +58,11 @@ public class OpencageIntegration {
 					openCageItem.setCity(jOpenResult.getComponents().getCity());
 					openCageItem.setCounty(jOpenResult.getComponents().getCountry());
 					openCageItem.setAddress(jOpenResult.getFormatted());
+					openCageItem.setEstado(jOpenResult.getComponents().getState());
+					openCageItem.setRua(jOpenResult.getComponents().getRoad());
+					openCageItem.setBairro(jOpenResult.getComponents().getSuburb());
+					openCageItem.setCep(jOpenResult.getComponents().getPostcode());
+					openCageItem.setRegion(jOpenResult.getComponents().getRegion());
 					
 					opencageIntegrationModel.getResponseList().add(opencageIntegrationModel);
 				});
