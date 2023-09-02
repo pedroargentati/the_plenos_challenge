@@ -56,7 +56,7 @@ public class OpencageIntegration {
 				openCageItem.setContinent(jOpenResult.getComponents().getContinent());
 				openCageItem.setCity(jOpenResult.getComponents().getCity());
 				openCageItem.setCounty(jOpenResult.getComponents().getCountry());
-				openCageItem.setAddress(jOpenResult.getFormatted());;
+				openCageItem.setAddress(jOpenResult.getFormatted());
 				
 				opencageIntegrationModel.getResponseList().add(opencageIntegrationModel);
 			});
