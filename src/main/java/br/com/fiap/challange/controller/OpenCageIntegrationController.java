@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.challange.constants.Endpoints;
+import br.com.fiap.challange.exeptions.IntegrationException;
 import br.com.fiap.challange.integrations.OpencageIntegration;
 import br.com.fiap.challange.model.OpencageIntegrationModel;
 
@@ -13,7 +14,7 @@ import br.com.fiap.challange.model.OpencageIntegrationModel;
 public class OpenCageIntegrationController {
 
 	@GetMapping(Endpoints.OPEN_CAGE_INTEGRATION)
-	public ResponseEntity<OpencageIntegrationModel> makeIntegration(@RequestParam String coordinates) {
+	public ResponseEntity<OpencageIntegrationModel> makeIntegration(@RequestParam String coordinates) throws IntegrationException {
 	    String[] coords = coordinates.split(",");
 	    
 	    if (coords.length != 2) {
