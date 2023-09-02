@@ -5,15 +5,10 @@ import java.util.Date;
 public class CombustivelModel {
 
 	private Long id;
-
 	private String nomePosto;
-
 	private String endereco;
-
 	private Date data;
-
 	private String tipo;
-
 	private String qualidade;
 
 	public CombustivelModel() {

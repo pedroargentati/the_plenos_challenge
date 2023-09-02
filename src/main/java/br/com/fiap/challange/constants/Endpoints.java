@@ -2,8 +2,7 @@ package br.com.fiap.challange.constants;
 
 public class Endpoints {
 
-	private Endpoints() {
-	}
+	private Endpoints() {}
 
 	public static final String COMBUSTIVEL = "/api/combustivel";
 	

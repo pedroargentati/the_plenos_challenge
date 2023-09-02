@@ -12,9 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.challange.constants.Endpoints;
 import br.com.fiap.challange.entity.CombustivelEntity;
-import br.com.fiap.challange.model.CombustivelModel;
 import br.com.fiap.challange.repository.CombustivelRepository;
-import jakarta.validation.Valid;
 
 @RestController
 public class CombustivelController {
