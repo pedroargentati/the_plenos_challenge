@@ -12,21 +12,24 @@ import br.com.fiap.challange.model.OpencageIntegrationModel;
 @RestController
 public class OpenCageIntegrationController {
 
-	@SuppressWarnings("unchecked")
 	@GetMapping(Endpoints.OPEN_CAGE_INTEGRATION)
-	public ResponseEntity<OpencageIntegrationModel> makeIntegration(@RequestParam String q) {
-		if (!q.contains(",")) {
-			return (ResponseEntity<OpencageIntegrationModel>) ResponseEntity.badRequest();
-		}
+	public ResponseEntity<OpencageIntegrationModel> makeIntegration(@RequestParam String coordinates) {
+	    String[] coords = coordinates.split(",");
+	    
+	    if (coords.length != 2) {
+	        return ResponseEntity.badRequest().build();
+	    }
 
-		String[] coords = q.split(",");
-		Double latitude = Double.valueOf(coords[0]);
-		Double longitude = Double.valueOf(coords[1]);
-		
-		System.out.println("oiii");
-		OpencageIntegrationModel response = OpencageIntegration.makeIntegration(latitude, longitude);
-		return ResponseEntity.ok(response);
-		
+	    try {
+	        Double latitude = Double.parseDouble(coords[0]);
+	        Double longitude = Double.parseDouble(coords[1]);
+
+	        OpencageIntegrationModel response = OpencageIntegration.makeIntegration(latitude, longitude);
+	        return ResponseEntity.ok(response);
+	    } catch (NumberFormatException e) {
+	        return ResponseEntity.badRequest().build();
+	    }
 	}
+
 	
 }

@@ -7,25 +7,20 @@ import com.byteowls.jopencage.model.JOpenCageResponse;
 import com.byteowls.jopencage.model.JOpenCageResult;
 import com.byteowls.jopencage.model.JOpenCageReverseRequest;
 
+import br.com.fiap.challange.exeptions.IntegrationException;
 import br.com.fiap.challange.model.OpencageIntegrationModel;
 
 public class OpencageIntegration {
 	
 	public static final String API_KEY = "91c4f0a5aafc407bb4576f286d507dc7";
 
-	public static OpencageIntegrationModel makeIntegration(Double latitude, Double longitude) {
+	public static OpencageIntegrationModel makeIntegration(Double latitude, Double longitude) throws IntegrationException {
 		JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder(API_KEY);
-		System.out.println(jOpenCageGeocoder);
 
 		JOpenCageReverseRequest request = new JOpenCageReverseRequest(latitude, longitude);
-		System.out.println(request);
 
 		JOpenCageResponse response = jOpenCageGeocoder.reverse(request);
 
-		// get the formatted address of the first result:
-		// String formattedAddress = response.getResults().get(0).getFormatted();
-		// formattedAddress is now 'Travessera de Gràcia, 142, 08012 Barcelona, España'
-		
 		OpencageIntegrationModel openCageResponseFormatted = prepareResponse(response);
 		
 		return openCageResponseFormatted;
