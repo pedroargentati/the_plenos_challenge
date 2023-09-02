@@ -7,7 +7,7 @@ public class AbastecimentoModel {
 	private Integer abastecimentoId;
 	private Date    abastecimentoDate;
 	private String  abastecimentoCoordenada;
-	private Integer statusCombustivelid;
+	private Integer statusCombustivelId;
 	private Integer tipoCombustivelId;
 	private Integer veiculoId;
 	private Integer enderecoId;
@@ -36,12 +36,12 @@ public class AbastecimentoModel {
 		this.abastecimentoCoordenada = abastecimentoCoordenada;
 	}
 
-	public Integer getStatusCombustivelid() {
-		return statusCombustivelid;
+	public Integer getStatusCombustivelId() {
+		return statusCombustivelId;
 	}
 
-	public void setStatusCombustivelid(Integer statusCombustivelid) {
-		this.statusCombustivelid = statusCombustivelid;
+	public void setStatusCombustivelId(Integer statusCombustivelId) {
+		this.statusCombustivelId = statusCombustivelId;
 	}
 
 	public Integer getTipoCombustivelId() {
