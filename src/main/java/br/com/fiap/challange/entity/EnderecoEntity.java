@@ -20,15 +20,16 @@ public class EnderecoEntity {
 	private String pais;
 	private String continente;
 	private String tipoLugar;
+	private String cep;
 	
 	public EnderecoEntity() {}
 	
 	public EnderecoEntity(EnderecoModel model) {
-		this(model.getEnderecoId(), model.getRua(), model.getBairro(), model.getCidade(), model.getPais(), model.getContinente(), model.getTipoLugar());
+		this(model.getEnderecoId(), model.getRua(), model.getBairro(), model.getCidade(), model.getPais(), model.getContinente(), model.getTipoLugar(), model.getCep());
 	}
 	
 	public EnderecoEntity(Integer enderecoId, String rua, String bairro, String cidade, String pais, String continente,
-			String tipoLugar) {
+			String tipoLugar, String cep) {
 		super();
 		this.enderecoId = enderecoId;
 		this.rua = rua;
@@ -37,6 +38,7 @@ public class EnderecoEntity {
 		this.pais = pais;
 		this.continente = continente;
 		this.tipoLugar = tipoLugar;
+		this.cep = cep;
 	}
 
 	public Integer getEnderecoId() {
@@ -94,5 +96,14 @@ public class EnderecoEntity {
 	public void setTipoLugar(String tipoLugar) {
 		this.tipoLugar = tipoLugar;
 	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+	
 	
 }

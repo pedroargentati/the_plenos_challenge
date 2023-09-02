@@ -10,4 +10,5 @@ public class Endpoints {
 	
 	public static final String OPEN_CAGE_INTEGRATION = "/api/geolocal";
 
+	public static final String REGISTER_OPEN_CAGE_INTEGRATION = "/api/register/geolocal/";
 }
