@@ -1,7 +1,18 @@
-package br.com.fiap.challange.model;
+package br.com.fiap.challange.entity;
 
-public class EnderecoModel {
+import br.com.fiap.challange.model.EnderecoModel;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
+@Entity(name = "Endereco")
+@Table(name = "Endereco")
+public class EnderecoEntity {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer enderecoId;
 	private String rua;
 	private String bairro;
@@ -9,6 +20,24 @@ public class EnderecoModel {
 	private String pais;
 	private String continente;
 	private String tipoLugar;
+	
+	public EnderecoEntity() {}
+	
+	public EnderecoEntity(EnderecoModel model) {
+		this(model.getEnderecoId(), model.getRua(), model.getBairro(), model.getCidade(), model.getPais(), model.getContinente(), model.getTipoLugar());
+	}
+	
+	public EnderecoEntity(Integer enderecoId, String rua, String bairro, String cidade, String pais, String continente,
+			String tipoLugar) {
+		super();
+		this.enderecoId = enderecoId;
+		this.rua = rua;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.pais = pais;
+		this.continente = continente;
+		this.tipoLugar = tipoLugar;
+	}
 
 	public Integer getEnderecoId() {
 		return enderecoId;
@@ -65,5 +94,5 @@ public class EnderecoModel {
 	public void setTipoLugar(String tipoLugar) {
 		this.tipoLugar = tipoLugar;
 	}
-
+	
 }
