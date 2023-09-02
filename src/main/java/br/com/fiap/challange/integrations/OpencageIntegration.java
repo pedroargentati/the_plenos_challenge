@@ -26,35 +26,39 @@ public class OpencageIntegration {
 		return openCageResponseFormatted;
 	}
 	
-	private static OpencageIntegrationModel prepareResponse(JOpenCageResponse response) {
+	private static OpencageIntegrationModel prepareResponse(JOpenCageResponse response) throws IntegrationException {
 		OpencageIntegrationModel opencageIntegrationModel = new OpencageIntegrationModel();
 		
 		List<JOpenCageResult> results = response.getResults();
-		if (results.size() == 1) {
-			JOpenCageResult jOpenResult = results.get(0);
-			
-			opencageIntegrationModel.setLat(jOpenResult.getGeometry().getLat());
-			opencageIntegrationModel.setLng(jOpenResult.getGeometry().getLng());
-			opencageIntegrationModel.setType(jOpenResult.getComponents().getType());
-			opencageIntegrationModel.setContinent(jOpenResult.getComponents().getContinent());
-			opencageIntegrationModel.setCity(jOpenResult.getComponents().getCity());
-			opencageIntegrationModel.setCounty(jOpenResult.getComponents().getCountry());
-			opencageIntegrationModel.setAddress(jOpenResult.getFormatted());
+		if (results != null && !results.isEmpty()) {
+			if (results.size() == 1) {
+				JOpenCageResult jOpenResult = results.get(0);
+				
+				opencageIntegrationModel.setLat(jOpenResult.getGeometry().getLat());
+				opencageIntegrationModel.setLng(jOpenResult.getGeometry().getLng());
+				opencageIntegrationModel.setType(jOpenResult.getComponents().getType());
+				opencageIntegrationModel.setContinent(jOpenResult.getComponents().getContinent());
+				opencageIntegrationModel.setCity(jOpenResult.getComponents().getCity());
+				opencageIntegrationModel.setCounty(jOpenResult.getComponents().getCountry());
+				opencageIntegrationModel.setAddress(jOpenResult.getFormatted());
 
+			} else {
+				results.forEach((jOpenResult) -> {
+					OpencageIntegrationModel openCageItem = new OpencageIntegrationModel();
+					
+					openCageItem.setLat(jOpenResult.getGeometry().getLat());
+					openCageItem.setLng(jOpenResult.getGeometry().getLng());
+					openCageItem.setType(jOpenResult.getComponents().getType());
+					openCageItem.setContinent(jOpenResult.getComponents().getContinent());
+					openCageItem.setCity(jOpenResult.getComponents().getCity());
+					openCageItem.setCounty(jOpenResult.getComponents().getCountry());
+					openCageItem.setAddress(jOpenResult.getFormatted());
+					
+					opencageIntegrationModel.getResponseList().add(opencageIntegrationModel);
+				});
+			}
 		} else {
-			results.forEach((jOpenResult) -> {
-				OpencageIntegrationModel openCageItem = new OpencageIntegrationModel();
-				
-				openCageItem.setLat(jOpenResult.getGeometry().getLat());
-				openCageItem.setLng(jOpenResult.getGeometry().getLng());
-				openCageItem.setType(jOpenResult.getComponents().getType());
-				openCageItem.setContinent(jOpenResult.getComponents().getContinent());
-				openCageItem.setCity(jOpenResult.getComponents().getCity());
-				openCageItem.setCounty(jOpenResult.getComponents().getCountry());
-				openCageItem.setAddress(jOpenResult.getFormatted());
-				
-				opencageIntegrationModel.getResponseList().add(opencageIntegrationModel);
-			});
+			throw new IntegrationException("[ERRO DE INTEGRAÇÃO] - Nenhum registro foi encontrado para essas coordenadas.", "(prepareResponse)", 500);
 		}
 		
 		return opencageIntegrationModel;

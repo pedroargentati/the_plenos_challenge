@@ -7,7 +7,7 @@ public class OpencageIntegrationModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	List<OpencageIntegrationModel> responseList;
+	private List<OpencageIntegrationModel> responseList;
 	private Double lat; // GeoMetry
 	private Double lng; // GeoMetry
 	private String coordenates;
