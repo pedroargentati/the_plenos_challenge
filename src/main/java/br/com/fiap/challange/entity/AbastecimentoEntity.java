@@ -17,20 +17,11 @@ public class AbastecimentoEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer abastecimentoId;
-
 	private Date abastecimentoDate;
 	private String abastecimentoCoordenada;
-
-	@Column(name = "STATUSCOMBUSTIVELID", nullable = false)
 	private Integer statusCombustivelId;
-
-	@Column(name = "TIPOCOMBUSTIVELID")
 	private Integer tipoCombustivelId;
-
-	@Column(name = "VEICULOID")
 	private Integer veiculoId;
-
-	@Column(name = "ENDERECOID")
 	private Integer enderecoId;
 	
 	public AbastecimentoEntity() {}
