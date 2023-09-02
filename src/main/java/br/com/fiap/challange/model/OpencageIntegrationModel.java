@@ -10,13 +10,19 @@ public class OpencageIntegrationModel implements Serializable {
 	private List<OpencageIntegrationModel> responseList;
 	private Double lat; // GeoMetry
 	private Double lng; // GeoMetry
-	private String coordenates;
+	private String coordinates;
 	private String type; // Components
 	private String category; // Components
 	private String continent; // Components
 	private String city; // Components
 	private String county; // Components
 	private String address; // Components
+
+	private String estado;
+	private String rua;
+	private String bairro;
+	private String cep;
+	private String region;
 
 	public List<OpencageIntegrationModel> getResponseList() {
 		return responseList;
@@ -41,17 +47,13 @@ public class OpencageIntegrationModel implements Serializable {
 	public void setLng(Double lng) {
 		this.lng = lng;
 	}
-	
-	public String getCoordinates() {
-	    if (this.lat != null && this.lng != null) {
-	        return  this.lat.toString().concat(", ").concat(this.lng.toString());
-	    } else {
-	    	return null;
-	    }
-	}
 
-	public void setCoordenates(String coordenates) {
-		this.coordenates = coordenates;
+	public String getCoordinates() {
+		if (this.lat != null && this.lng != null) {
+			return this.lat.toString().concat(", ").concat(this.lng.toString());
+		} else {
+			return null;
+		}
 	}
 
 	public String getType() {
@@ -100,6 +102,46 @@ public class OpencageIntegrationModel implements Serializable {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public String getRua() {
+		return rua;
+	}
+
+	public void setRua(String rua) {
+		this.rua = rua;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
 	}
 
 }

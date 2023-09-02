@@ -34,4 +34,5 @@ public class Endpoints {
 	
 	public static final String GET_ALL_VEICLES = "/api/vehicles";
 
+	public static final String REGISTER_OPEN_CAGE_INTEGRATION = "/api/register/geolocal/";
 }

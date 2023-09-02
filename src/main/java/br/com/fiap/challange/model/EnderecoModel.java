@@ -9,6 +9,7 @@ public class EnderecoModel {
 	private String pais;
 	private String continente;
 	private String tipoLugar;
+	private String cep;
 
 	public Integer getEnderecoId() {
 		return enderecoId;
@@ -64,6 +65,14 @@ public class EnderecoModel {
 
 	public void setTipoLugar(String tipoLugar) {
 		this.tipoLugar = tipoLugar;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
 
 }
