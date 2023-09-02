@@ -10,6 +10,7 @@ public class OpencageIntegrationModel implements Serializable {
 	List<OpencageIntegrationModel> responseList;
 	private Double lat; // GeoMetry
 	private Double lng; // GeoMetry
+	private String coordenates;
 	private String type; // Components
 	private String category; // Components
 	private String continent; // Components
@@ -39,6 +40,18 @@ public class OpencageIntegrationModel implements Serializable {
 
 	public void setLng(Double lng) {
 		this.lng = lng;
+	}
+	
+	public String getCoordinates() {
+	    if (this.lat != null && this.lng != null) {
+	        return  this.lat.toString().concat(", ").concat(this.lng.toString());
+	    } else {
+	    	return null;
+	    }
+	}
+
+	public void setCoordenates(String coordenates) {
+		this.coordenates = coordenates;
 	}
 
 	public String getType() {
