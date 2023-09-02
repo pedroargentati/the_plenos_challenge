@@ -47,18 +47,19 @@ public class OpencageIntegration {
 			opencageIntegrationModel.setAddress(jOpenResult.getFormatted());
 
 		} else {
-			for (int i = 0; i < results.size(); i++) {
+			results.forEach((jOpenResult) -> {
 				OpencageIntegrationModel openCageItem = new OpencageIntegrationModel();
-				JOpenCageResult jOpenResult = results.get(i);
 				
 				openCageItem.setLat(jOpenResult.getGeometry().getLat());
 				openCageItem.setLng(jOpenResult.getGeometry().getLng());
-				openCageItem.setType(jOpenResult.getComponents().getCity());
-				openCageItem.setContinent(jOpenResult.getComponents().getCountry());
-				openCageItem.setAddress(jOpenResult.getFormatted());
+				openCageItem.setType(jOpenResult.getComponents().getType());
+				openCageItem.setContinent(jOpenResult.getComponents().getContinent());
+				openCageItem.setCity(jOpenResult.getComponents().getCity());
+				openCageItem.setCounty(jOpenResult.getComponents().getCountry());
+				openCageItem.setAddress(jOpenResult.getFormatted());;
 				
 				opencageIntegrationModel.getResponseList().add(opencageIntegrationModel);
-			}
+			});
 		}
 		
 		return opencageIntegrationModel;
