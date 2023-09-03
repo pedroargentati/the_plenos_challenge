@@ -10,6 +10,7 @@ import br.com.fiap.challange.entity.AbastecimentoEntity;
 import br.com.fiap.challange.entity.EnderecoEntity;
 import br.com.fiap.challange.exeptions.ChallangeException;
 import br.com.fiap.challange.model.OpencageDTOPOST;
+import br.com.fiap.challange.model.OpencageIntegrationModel;
 
 @Service
 public class ConversionService {
@@ -52,6 +53,28 @@ public class ConversionService {
             throw new ChallangeException("A chave não pode ser nula ou vazia");
         }
     }
+    
+	public static EnderecoEntity mapOpencageResponseToEnderecoEntity(OpencageIntegrationModel response) throws ChallangeException {
+	    EnderecoEntity endereco = new EnderecoEntity();
+	    endereco.setRua(response.getRua());
+	    endereco.setBairro(response.getBairro());
+	    endereco.setCidade(response.getCity());
+	    endereco.setPais(response.getCounty());
+	    endereco.setContinente(response.getContinent());
+	    endereco.setTipoLugar(ConversionService.translateValues(response.getType()));
+	    endereco.setCep(response.getCep());
+	    return endereco;
+	}
+	
+	public static AbastecimentoEntity mapOpencageResponseToAbastecimentoEntity(OpencageIntegrationModel response, EnderecoEntity endereco) {
+		AbastecimentoEntity abastecimento = new AbastecimentoEntity();
+		abastecimento.setAbastecimentoDate(response.getAbastecimentoDate());
+		abastecimento.setEnderecoId(endereco.getEnderecoId());
+		abastecimento.setAbastecimentoCoordenada(response.getCoordinates());
+		abastecimento.setVeiculoId(Integer.valueOf(1));
+		abastecimento.setTipoCombustivelId(Integer.valueOf(1));
+	    return abastecimento;
+	}
 	
 	public static Function<String, Boolean> verifyString = (str) -> Boolean.valueOf(str != null && !str.trim().isEmpty());
 	

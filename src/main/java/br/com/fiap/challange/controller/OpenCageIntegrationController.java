@@ -59,12 +59,12 @@ public class OpenCageIntegrationController {
 	        throw new IntegrationException("[ERRO DE INTEGRAÇÃO] - Nenhum registro foi encontrado para essas coordenadas.", "(prepareResponse)", 500);
 	    }
 
-	    EnderecoEntity endereco = this.mapOpencageResponseToEnderecoEntity(response);
+	    EnderecoEntity endereco = ConversionService.mapOpencageResponseToEnderecoEntity(response);
 
 	    EnderecoEntity savedEndereco = enderecoRepository.save(endereco);
 
 	    if (savedEndereco != null) {
-	    	AbastecimentoEntity abastecimento = this.mapOpencageResponseToAbastecimentoEntity(response, savedEndereco);
+	    	AbastecimentoEntity abastecimento = ConversionService.mapOpencageResponseToAbastecimentoEntity(response, savedEndereco);
 	    	AbastecimentoEntity savedAbastecimento = abastecimentoRepository.save(abastecimento);
 
 	    	if (savedAbastecimento != null) {
@@ -78,28 +78,6 @@ public class OpenCageIntegrationController {
 	    }
 
 	    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-	}
-
-	private EnderecoEntity mapOpencageResponseToEnderecoEntity(OpencageIntegrationModel response) throws ChallangeException {
-	    EnderecoEntity endereco = new EnderecoEntity();
-	    endereco.setRua(response.getRua());
-	    endereco.setBairro(response.getBairro());
-	    endereco.setCidade(response.getCity());
-	    endereco.setPais(response.getCounty());
-	    endereco.setContinente(response.getContinent());
-	    endereco.setTipoLugar(ConversionService.translateValues(response.getType()));
-	    endereco.setCep(response.getCep());
-	    return endereco;
-	}
-	
-	private AbastecimentoEntity mapOpencageResponseToAbastecimentoEntity(OpencageIntegrationModel response, EnderecoEntity endereco) {
-		AbastecimentoEntity abastecimento = new AbastecimentoEntity();
-		abastecimento.setAbastecimentoDate(response.getAbastecimentoDate());
-		abastecimento.setEnderecoId(endereco.getEnderecoId());
-		abastecimento.setAbastecimentoCoordenada(response.getCoordinates());
-		abastecimento.setVeiculoId(Integer.valueOf(1));
-		abastecimento.setTipoCombustivelId(Integer.valueOf(1));
-	    return abastecimento;
 	}
 
 	
