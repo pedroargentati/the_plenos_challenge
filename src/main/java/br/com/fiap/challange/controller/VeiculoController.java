@@ -28,7 +28,7 @@ public class VeiculoController {
 		return ResponseEntity.ok(clients);
 	}
 
-	@PostMapping(Endpoints.REGISTER_TYPE_FUEL)
+	@PostMapping(Endpoints.REGISTER_VEICLES)
 	public ResponseEntity<VeiculoEntity> create(@RequestBody VeiculoEntity model) {
 
 		veiculoRepository.save(model);
