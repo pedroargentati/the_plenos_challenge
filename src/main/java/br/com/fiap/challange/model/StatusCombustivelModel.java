@@ -2,23 +2,23 @@ package br.com.fiap.challange.model;
 
 public class StatusCombustivelModel {
 
-	private Integer statusCombustivelId;
-	private Integer tipoCombustivelId;
+	private Long statusCombustivelId;
+	private Long tipoCombustivelId;
 	private String combustivelAdulterado;
 
-	public Integer getStatusCombustivelId() {
+	public Long getStatusCombustivelId() {
 		return statusCombustivelId;
 	}
 
-	public void setStatusCombustivelId(Integer statusCombustivelId) {
+	public void setStatusCombustivelId(Long statusCombustivelId) {
 		this.statusCombustivelId = statusCombustivelId;
 	}
 
-	public Integer getTipoCombustivelId() {
+	public Long getTipoCombustivelId() {
 		return tipoCombustivelId;
 	}
 
-	public void setTipoCombustivelId(Integer tipoCombustivelId) {
+	public void setTipoCombustivelId(Long tipoCombustivelId) {
 		this.tipoCombustivelId = tipoCombustivelId;
 	}
 

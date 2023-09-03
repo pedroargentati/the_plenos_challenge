@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.fiap.challange.constants.Endpoints;
 import br.com.fiap.challange.entity.AbastecimentoEntity;
 import br.com.fiap.challange.entity.EnderecoEntity;
+import br.com.fiap.challange.entity.TipoCombustivelEntity;
 import br.com.fiap.challange.model.OpencageDTOPOST;
 import br.com.fiap.challange.repository.AbastecimentoRepository;
 import br.com.fiap.challange.repository.EnderecoRepository;
+import br.com.fiap.challange.repository.StatusCombustivelRepository;
+import br.com.fiap.challange.repository.TipoCombustivelRepository;
 import br.com.fiap.challange.services.ConversionService;
 
 @RestController
@@ -30,6 +33,12 @@ public class EnderecoController {
 
 	@Autowired
 	private AbastecimentoRepository abastecimentoRepository;
+	
+	@Autowired
+	private TipoCombustivelRepository tipoCombustivelRepository;
+	
+	@Autowired
+	private StatusCombustivelRepository statusCombustivelRepository;
 	
 	@GetMapping(Endpoints.GET_ALL_ADDRESS)
 	public ResponseEntity<List<OpencageDTOPOST>> findAll() {
@@ -50,6 +59,26 @@ public class EnderecoController {
 			return Collections.<OpencageDTOPOST>emptyList();
 		}).flatMap(Collection::stream).collect(Collectors.toList());
 
+		responseList.forEach(item -> {
+			Long idTipoCombustivel = item.getTipoCombustivelId();
+			TipoCombustivelEntity combustivel = null;
+			if (idTipoCombustivel != null && idTipoCombustivel.intValue() > 0) {
+				combustivel = tipoCombustivelRepository.getReferenceById(idTipoCombustivel);
+			}
+			String nomeCombustivel = combustivel == null ? "Gasolina Comum" : combustivel.getTipoCombustivelNome();
+			item.setNomeTipoCombustivel(nomeCombustivel);
+			
+			Long idStatusComb = item.getStatusCombustivelId() == null ? 1 : item.getStatusCombustivelId();
+			var statusTipoCombustivel = statusCombustivelRepository.getReferenceById(idStatusComb);
+			if (statusTipoCombustivel != null) {
+				item.setCombustivelAdulterado(statusTipoCombustivel.getCombustivelAdulterado());
+			} else {
+				item.setCombustivelAdulterado("Sim");
+			}
+			
+		});
+
+		
 		return ResponseEntity.ok(responseList);
 	}
 

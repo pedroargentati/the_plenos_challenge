@@ -7,10 +7,12 @@ public class OpencageDTOPOST extends EnderecoModel {
 	private Integer abastecimentoId;
 	private Date    abastecimentoDate;
 	private String  abastecimentoCoordenada;
-	private Integer statusCombustivelId;
-	private Integer tipoCombustivelId;
+	private Long statusCombustivelId;
+	private Long tipoCombustivelId;
 	private Integer veiculoId;
 	private Integer enderecoId;
+	private String nomeTipoCombustivel;
+	private String combustivelAdulterado;
 
 	public Integer getAbastecimentoId() {
 		return abastecimentoId;
@@ -36,19 +38,19 @@ public class OpencageDTOPOST extends EnderecoModel {
 		this.abastecimentoCoordenada = abastecimentoCoordenada;
 	}
 
-	public Integer getStatusCombustivelId() {
+	public Long getStatusCombustivelId() {
 		return statusCombustivelId;
 	}
 
-	public void setStatusCombustivelId(Integer statusCombustivelId) {
+	public void setStatusCombustivelId(Long statusCombustivelId) {
 		this.statusCombustivelId = statusCombustivelId;
 	}
 
-	public Integer getTipoCombustivelId() {
+	public Long getTipoCombustivelId() {
 		return tipoCombustivelId;
 	}
 
-	public void setTipoCombustivelId(Integer tipoCombustivelId) {
+	public void setTipoCombustivelId(Long tipoCombustivelId) {
 		this.tipoCombustivelId = tipoCombustivelId;
 	}
 
@@ -67,4 +69,21 @@ public class OpencageDTOPOST extends EnderecoModel {
 	public void setEnderecoId(Integer enderecoId) {
 		this.enderecoId = enderecoId;
 	}
+
+	public String getNomeTipoCombustivel() {
+		return nomeTipoCombustivel;
+	}
+
+	public void setNomeTipoCombustivel(String nomeTipoCombustivel) {
+		this.nomeTipoCombustivel = nomeTipoCombustivel;
+	}
+
+	public String getCombustivelAdulterado() {
+		return combustivelAdulterado;
+	}
+
+	public void setCombustivelAdulterado(String combustivelAdulterado) {
+		this.combustivelAdulterado = combustivelAdulterado;
+	}
+	
 }

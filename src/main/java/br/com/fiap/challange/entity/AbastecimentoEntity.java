@@ -3,7 +3,6 @@ package br.com.fiap.challange.entity;
 import java.util.Date;
 
 import br.com.fiap.challange.model.AbastecimentoModel;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,8 +18,8 @@ public class AbastecimentoEntity {
 	private Integer abastecimentoId;
 	private Date abastecimentoDate;
 	private String abastecimentoCoordenada;
-	private Integer statusCombustivelId;
-	private Integer tipoCombustivelId;
+	private Long statusCombustivelId;
+	private Long tipoCombustivelId;
 	private Integer veiculoId;
 	private Integer enderecoId;
 	
@@ -32,7 +31,7 @@ public class AbastecimentoEntity {
 	}
 
 	public AbastecimentoEntity(Integer abastecimentoId, Date abastecimentoDate, String abastecimentoCoordenada,
-	    Integer statusCombustivelId, Integer tipoCombustivelId, Integer veiculoId, Integer enderecoId) {
+			Long statusCombustivelId, Long tipoCombustivelId, Integer veiculoId, Integer enderecoId) {
 	    super();
 	    this.abastecimentoId = abastecimentoId;
 	    this.abastecimentoDate = abastecimentoDate;
@@ -67,19 +66,19 @@ public class AbastecimentoEntity {
 		this.abastecimentoCoordenada = abastecimentoCoordenada;
 	}
 
-	public Integer getStatusCombustivelId() {
+	public Long getStatusCombustivelId() {
 		return statusCombustivelId;
 	}
 
-	public void setStatusCombustivelId(Integer statusCombustivelId) {
+	public void setStatusCombustivelId(Long statusCombustivelId) {
 		this.statusCombustivelId = statusCombustivelId;
 	}
 
-	public Integer getTipoCombustivelId() {
+	public Long getTipoCombustivelId() {
 		return tipoCombustivelId;
 	}
 
-	public void setTipoCombustivelId(Integer tipoCombustivelId) {
+	public void setTipoCombustivelId(Long tipoCombustivelId) {
 		this.tipoCombustivelId = tipoCombustivelId;
 	}
 
