@@ -17,7 +17,6 @@ public class ConversionService {
 	public static OpencageDTOPOST convertToOpencageDTO(AbastecimentoEntity abastecimento, EnderecoEntity endereco) {
         OpencageDTOPOST opencageDTO = new OpencageDTOPOST();
 
-        // Preencha os campos do DTO com os valores dos objetos AbastecimentoModel e EnderecoModel
         opencageDTO.setAbastecimentoId(abastecimento.getAbastecimentoId());
         opencageDTO.setAbastecimentoDate(abastecimento.getAbastecimentoDate());
         opencageDTO.setAbastecimentoCoordenada(abastecimento.getAbastecimentoCoordenada());
