@@ -16,7 +16,7 @@ public class Endpoints {
 	
 	public static final String REGISTER_ADDRESS ="/api/register/address";
 	
-	public static final String REGISTER_TYPE_FUEL = "/api/register/type";
+	public static final String REGISTER_TYPE_FUEL = "/api/regist[er/type";
 	
 	public static final String REGISTER_VEICLES = "/api/register/vehicles";
 	

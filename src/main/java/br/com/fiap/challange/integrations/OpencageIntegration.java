@@ -1,5 +1,6 @@
 package br.com.fiap.challange.integrations;
 
+import java.util.Date;
 import java.util.List;
 
 import com.byteowls.jopencage.JOpenCageGeocoder;
@@ -71,6 +72,7 @@ public class OpencageIntegration {
 			throw new IntegrationException("[ERRO DE INTEGRAÇÃO] - Nenhum registro foi encontrado para essas coordenadas.", "(prepareResponse)", 500);
 		}
 		
+		opencageIntegrationModel.setAbastecimentoDate(new Date());
 		return opencageIntegrationModel;
 		
 	}

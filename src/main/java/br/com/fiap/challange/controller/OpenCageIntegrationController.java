@@ -10,12 +10,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.challange.constants.Endpoints;
+import br.com.fiap.challange.entity.AbastecimentoEntity;
 import br.com.fiap.challange.entity.EnderecoEntity;
+import br.com.fiap.challange.exeptions.ChallangeException;
 import br.com.fiap.challange.exeptions.IntegrationException;
 import br.com.fiap.challange.integrations.OpencageIntegration;
 import br.com.fiap.challange.model.CoordinatesModel;
+import br.com.fiap.challange.model.OpencageDTOPOST;
 import br.com.fiap.challange.model.OpencageIntegrationModel;
+import br.com.fiap.challange.repository.AbastecimentoRepository;
 import br.com.fiap.challange.repository.EnderecoRepository;
+import br.com.fiap.challange.services.ConversionService;
 import jakarta.validation.Valid;
 
 @RestController
@@ -23,6 +28,9 @@ public class OpenCageIntegrationController {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private AbastecimentoRepository abastecimentoRepository;
 
 	@GetMapping(Endpoints.OPEN_CAGE_INTEGRATION)
 	public ResponseEntity<OpencageIntegrationModel> makeIntegration(@RequestParam String coordinates) throws IntegrationException {
@@ -44,7 +52,7 @@ public class OpenCageIntegrationController {
 	}
 	
 	@PostMapping(Endpoints.REGISTER_OPEN_CAGE_INTEGRATION)
-	public ResponseEntity<EnderecoEntity> adicionaEnderecoPorIntegracao(@RequestBody @Valid CoordinatesModel coords) throws IntegrationException {
+	public ResponseEntity<OpencageDTOPOST> adicionaEnderecoPorIntegracao(@RequestBody @Valid CoordinatesModel coords) throws ChallangeException {
 	    OpencageIntegrationModel response = OpencageIntegration.makeIntegration(coords.getLatitudade(), coords.getLongitude());
 
 	    if (response == null) {
@@ -56,22 +64,42 @@ public class OpenCageIntegrationController {
 	    EnderecoEntity savedEndereco = enderecoRepository.save(endereco);
 
 	    if (savedEndereco != null) {
-	        return ResponseEntity.status(HttpStatus.CREATED).body(savedEndereco);
+	    	AbastecimentoEntity abastecimento = this.mapOpencageResponseToAbastecimentoEntity(response, savedEndereco);
+	    	AbastecimentoEntity savedAbastecimento = abastecimentoRepository.save(abastecimento);
+
+	    	if (savedAbastecimento != null) {
+	    		OpencageDTOPOST responseAPI = ConversionService.convertToOpencageDTO(savedAbastecimento, savedEndereco);
+	    		
+	    		return ResponseEntity.status(HttpStatus.CREATED).body(responseAPI);
+	    	}
+	    	
 	    } else {
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	    }
+
+	    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 
-	private EnderecoEntity mapOpencageResponseToEnderecoEntity(OpencageIntegrationModel response) {
+	private EnderecoEntity mapOpencageResponseToEnderecoEntity(OpencageIntegrationModel response) throws ChallangeException {
 	    EnderecoEntity endereco = new EnderecoEntity();
 	    endereco.setRua(response.getRua());
 	    endereco.setBairro(response.getBairro());
 	    endereco.setCidade(response.getCity());
 	    endereco.setPais(response.getCounty());
 	    endereco.setContinente(response.getContinent());
-	    endereco.setTipoLugar(response.getType().equalsIgnoreCase("fuel") ? "Posto de gasolina" : response.getType());
+	    endereco.setTipoLugar(ConversionService.translateValues(response.getType()));
 	    endereco.setCep(response.getCep());
 	    return endereco;
+	}
+	
+	private AbastecimentoEntity mapOpencageResponseToAbastecimentoEntity(OpencageIntegrationModel response, EnderecoEntity endereco) {
+		AbastecimentoEntity abastecimento = new AbastecimentoEntity();
+		abastecimento.setAbastecimentoDate(response.getAbastecimentoDate());
+		abastecimento.setEnderecoId(endereco.getEnderecoId());
+		abastecimento.setAbastecimentoCoordenada(response.getCoordinates());
+		abastecimento.setVeiculoId(Integer.valueOf(1));
+		abastecimento.setTipoCombustivelId(Integer.valueOf(1));
+	    return abastecimento;
 	}
 
 	

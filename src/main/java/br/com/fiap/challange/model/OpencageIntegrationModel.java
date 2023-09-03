@@ -1,6 +1,7 @@
 package br.com.fiap.challange.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 public class OpencageIntegrationModel implements Serializable {
@@ -23,6 +24,8 @@ public class OpencageIntegrationModel implements Serializable {
 	private String bairro;
 	private String cep;
 	private String region;
+	
+	private Date abastecimentoDate;
 
 	public List<OpencageIntegrationModel> getResponseList() {
 		return responseList;
@@ -144,4 +147,16 @@ public class OpencageIntegrationModel implements Serializable {
 		this.region = region;
 	}
 
+	public Date getAbastecimentoDate() {
+		return abastecimentoDate;
+	}
+
+	public void setAbastecimentoDate(Date abastecimentoDate) {
+		this.abastecimentoDate = abastecimentoDate;
+	}
+
+	public void setCoordinates(String coordinates) {
+		this.coordinates = coordinates;
+	}
+	
 }
