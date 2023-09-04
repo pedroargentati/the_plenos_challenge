@@ -74,38 +74,23 @@ public class OpenCageIntegrationController {
 		EnderecoEntity savedEndereco = enderecoRepository.save(endereco);
 
 		if (savedEndereco != null) {
-			AbastecimentoEntity abastecimento = ConversionService.mapOpencageResponseToAbastecimentoEntity(response,
-					savedEndereco);
+			AbastecimentoEntity abastecimento = ConversionService.mapOpencageResponseToAbastecimentoEntity(response, savedEndereco);
+			
+			StatusCombustivelEntity statusCombustivel = new StatusCombustivelEntity();
+			
+			StatusCombustivelEntity statusCombustivelSaved = null;
+			statusCombustivel.setTipoCombustivelId(abastecimento.getTipoCombustivelId());
+			statusCombustivel.setCombustivelAdulterado(ConversionService.getRandomValue() > 2 ? "Sim" : "Não");
+			statusCombustivelSaved = statusCombustivelRepository.save(statusCombustivel);
+			
+			abastecimento.setStatusCombustivelId(statusCombustivelSaved.getStatusCombustivelId());
 			AbastecimentoEntity savedAbastecimento = abastecimentoRepository.save(abastecimento);
 
 			if (savedAbastecimento != null) {
 				OpencageDTOPOST responseAPI = ConversionService.convertToOpencageDTO(savedAbastecimento, savedEndereco);
-
-				StatusCombustivelEntity statusCombustivel = new StatusCombustivelEntity();
-				
-				StatusCombustivelEntity statusCombustivelSaved = null;
-				
-				var statusCombustivelList = statusCombustivelRepository.findAll();
-				if (statusCombustivelList != null && statusCombustivelList.size() > 0) {
-					StatusCombustivelEntity registroComMaiorId = statusCombustivelList.get(0);
-
-					for (StatusCombustivelEntity registro : statusCombustivelList) {
-						if (registro.getStatusCombustivelId() > registroComMaiorId.getStatusCombustivelId()) {
-							registroComMaiorId = registro;
-						}
-					}
-
-					statusCombustivel.setStatusCombustivelId(registroComMaiorId.getStatusCombustivelId() == null ? 1 : registroComMaiorId.getStatusCombustivelId());
-					statusCombustivel.setTipoCombustivelId(responseAPI.getTipoCombustivelId());
-					statusCombustivel.setCombustivelAdulterado(ConversionService.getRandomValue() > 2 ? "Sim" : "Não");
-					statusCombustivelSaved = statusCombustivelRepository.save(statusCombustivel);
-				} else {
-					statusCombustivel.setStatusCombustivelId(1L);
-					statusCombustivel.setTipoCombustivelId(responseAPI.getTipoCombustivelId());
-					statusCombustivel.setCombustivelAdulterado(ConversionService.getRandomValue() > 2 ? "Sim" : "Não");
-					statusCombustivelSaved = statusCombustivelRepository.save(statusCombustivel);
+				if (statusCombustivelSaved != null) {
+					responseAPI.setStatusCombustivelId(statusCombustivelSaved.getStatusCombustivelId());					
 				}
-				responseAPI.setStatusCombustivelId(statusCombustivelSaved.getStatusCombustivelId());
 				
 				return ResponseEntity.status(HttpStatus.CREATED).body(responseAPI);
 			}
