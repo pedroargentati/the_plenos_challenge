@@ -71,9 +71,9 @@ public class EnderecoController {
 			Long idStatusComb = item.getStatusCombustivelId() == null ? 1 : item.getStatusCombustivelId();
 			var statusTipoCombustivel = statusCombustivelRepository.getReferenceById(idStatusComb);
 			if (statusTipoCombustivel != null) {
-				item.setCombustivelAdulterado(statusTipoCombustivel.getCombustivelAdulterado());
+				item.setQualidade(statusTipoCombustivel.getQualidade());
 			} else {
-				item.setCombustivelAdulterado("Sim");
+				item.setQualidade("Bom");
 			}
 			
 			String rua = item.getRua() == null ? "" : item.getRua() + " - ";

@@ -15,19 +15,19 @@ public class StatusCombustivelEntity {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long statusCombustivelId;
 	private Long tipoCombustivelId;
-	private String combustivelAdulterado;
+	private String qualidade;
 	
 	public StatusCombustivelEntity() {}
 
 	public StatusCombustivelEntity(StatusCombustivelModel model) {
-		this(model.getStatusCombustivelId(), model.getTipoCombustivelId(), model.getCombustivelAdulterado());
+		this(model.getStatusCombustivelId(), model.getTipoCombustivelId(), model.getQualidade());
 	}
 	
-	public StatusCombustivelEntity(Long statusCombustivelId, Long tipoCombustivelId, String combustivelAdulterado) {
+	public StatusCombustivelEntity(Long statusCombustivelId, Long tipoCombustivelId, String qualidade) {
 		super();
 		this.statusCombustivelId = statusCombustivelId;
 		this.tipoCombustivelId = tipoCombustivelId;
-		this.combustivelAdulterado = combustivelAdulterado;
+		this.qualidade = qualidade;
 	}
 
 	public Long getStatusCombustivelId() {
@@ -46,12 +46,12 @@ public class StatusCombustivelEntity {
 		this.tipoCombustivelId = tipoCombustivelId;
 	}
 
-	public String getCombustivelAdulterado() {
-		return combustivelAdulterado;
+	public String getQualidade() {
+		return qualidade;
 	}
 
-	public void setCombustivelAdulterado(String combustivelAdulterado) {
-		this.combustivelAdulterado = combustivelAdulterado;
+	public void setQualidade(String qualidade) {
+		this.qualidade = qualidade;
 	}
 	
 }

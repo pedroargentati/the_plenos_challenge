@@ -4,7 +4,7 @@ public class StatusCombustivelModel {
 
 	private Long statusCombustivelId;
 	private Long tipoCombustivelId;
-	private String combustivelAdulterado;
+	private String qualidade;
 
 	public Long getStatusCombustivelId() {
 		return statusCombustivelId;
@@ -22,12 +22,12 @@ public class StatusCombustivelModel {
 		this.tipoCombustivelId = tipoCombustivelId;
 	}
 
-	public String getCombustivelAdulterado() {
-		return combustivelAdulterado;
+	public String getQualidade() {
+		return qualidade;
 	}
 
-	public void setCombustivelAdulterado(String combustivelAdulterado) {
-		this.combustivelAdulterado = combustivelAdulterado;
+	public void setQualidade(String qualidade) {
+		this.qualidade = qualidade;
 	}
 
 }

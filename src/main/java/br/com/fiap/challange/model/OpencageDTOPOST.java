@@ -12,7 +12,7 @@ public class OpencageDTOPOST extends EnderecoModel {
 	private Integer veiculoId;
 	private Integer enderecoId;
 	private String nomeTipoCombustivel;
-	private String combustivelAdulterado;
+	private String qualidade;
 	private String enderecoFormatado;
 
 	public Integer getAbastecimentoId() {
@@ -79,12 +79,12 @@ public class OpencageDTOPOST extends EnderecoModel {
 		this.nomeTipoCombustivel = nomeTipoCombustivel;
 	}
 
-	public String getCombustivelAdulterado() {
-		return combustivelAdulterado;
+	public String getQualidade() {
+		return qualidade;
 	}
 
-	public void setCombustivelAdulterado(String combustivelAdulterado) {
-		this.combustivelAdulterado = combustivelAdulterado;
+	public void setQualidade(String qualidade) {
+		this.qualidade = qualidade;
 	}
 	
 	public String getEnderecoFormatado() {

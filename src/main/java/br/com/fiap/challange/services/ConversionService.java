@@ -83,7 +83,7 @@ public class ConversionService {
 	public static long getRandomValue() {
 		Random random = new Random();
 		long limiteInferior = 1L; // Limite inferior (inclusive)
-		long limiteSuperior = 4L; // Limite superior (inclusive)
+		long limiteSuperior = 7L; // Limite superior (inclusive)
 
 		return limiteInferior + (long) (random.nextDouble() * (limiteSuperior - limiteInferior + 1));
 	}

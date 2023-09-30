@@ -80,7 +80,19 @@ public class OpenCageIntegrationController {
 			
 			StatusCombustivelEntity statusCombustivelSaved = null;
 			statusCombustivel.setTipoCombustivelId(abastecimento.getTipoCombustivelId());
-			statusCombustivel.setCombustivelAdulterado(ConversionService.getRandomValue() > 2 ? "Sim" : "Não");
+			
+			Long randomNumber = ConversionService.getRandomValue();
+			String qualidadeCombustivel = "";
+			
+			if (randomNumber.intValue() >= 0 || randomNumber.intValue() <= 2) {
+				qualidadeCombustivel = "Ruim";
+			} else if (randomNumber.intValue() >= 3 || randomNumber.intValue() <= 5) {
+				qualidadeCombustivel = "Médio";
+			} else {
+				qualidadeCombustivel = "Bom";
+			}
+			
+			statusCombustivel.setQualidade(qualidadeCombustivel);
 			statusCombustivelSaved = statusCombustivelRepository.save(statusCombustivel);
 			
 			abastecimento.setStatusCombustivelId(statusCombustivelSaved.getStatusCombustivelId());
