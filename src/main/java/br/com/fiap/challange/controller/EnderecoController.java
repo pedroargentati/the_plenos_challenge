@@ -76,7 +76,9 @@ public class EnderecoController {
 				item.setCombustivelAdulterado("Sim");
 			}
 			
-			String enderecoFormatado = item.getRua() == null ? "" : item.getRua() + " - " + item.getCep() == null ?  "" : item.getCep();
+			String rua = item.getRua() == null ? "" : item.getRua() + " - ";
+			String cep = item.getCep() == null ?  "" : item.getCep();
+			String enderecoFormatado = rua + cep;
 			item.setEnderecoFormatado(enderecoFormatado);
 			
 		});
