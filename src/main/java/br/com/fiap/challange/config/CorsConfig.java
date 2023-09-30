@@ -17,6 +17,8 @@ public class CorsConfig {
         corsConfiguration.setAllowedOrigins(List.of("http://localhost:5555")); 
         corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
         corsConfiguration.setAllowedHeaders(List.of("*"));
+        
+        // permitindo qualquer porta
         corsConfiguration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
