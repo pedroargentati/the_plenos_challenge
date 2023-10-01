@@ -40,6 +40,11 @@ public class EnderecoController {
 	@Autowired
 	private StatusCombustivelRepository statusCombustivelRepository;
 	
+	/**
+	 * Endpoint para obter todos os endereços e abastecimentos associados.
+	 *
+	 * @return Lista de objetos OpencageDTOPOST representando os endereços e abastecimentos.
+	 */
 	@GetMapping(Endpoints.GET_ALL_ADDRESS)
 	public ResponseEntity<List<OpencageDTOPOST>> findAll() {
 		List<EnderecoEntity> addres = enderecoRepository.findAll();
@@ -87,6 +92,12 @@ public class EnderecoController {
 		return ResponseEntity.ok(responseList);
 	}
 
+	/**
+	 * Endpoint para registrar um novo endereço.
+	 *
+	 * @param model Objeto JSON representando os detalhes do endereço.
+	 * @return O objeto EnderecoEntity recém-criado.
+	 */
 	@PostMapping(Endpoints.REGISTER_ADDRESS)
 	public ResponseEntity<EnderecoEntity> create(@RequestBody EnderecoEntity model) {
 

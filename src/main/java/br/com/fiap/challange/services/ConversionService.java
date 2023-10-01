@@ -87,5 +87,17 @@ public class ConversionService {
 
 		return limiteInferior + (long) (random.nextDouble() * (limiteSuperior - limiteInferior + 1));
 	}
+	
+	public static String getGasQuality(Long num) {
+		String qualidadeCombustivel = "";
+		if (num.intValue() >= 0 || num.intValue() <= 2) {
+			qualidadeCombustivel = "Ruim";
+		} else if (num.intValue() >= 3 || num.intValue() <= 5) {
+			qualidadeCombustivel = "Médio";
+		} else {
+			qualidadeCombustivel = "Bom";
+		}
+		return qualidadeCombustivel;
+	}
 
 }

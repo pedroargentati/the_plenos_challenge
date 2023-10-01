@@ -37,6 +37,13 @@ public class OpenCageIntegrationController {
 	@Autowired
 	private StatusCombustivelRepository statusCombustivelRepository;
 
+	/**
+	 * Endpoint para integrar com o serviço OpenCage a partir das coordenadas fornecidas.
+	 *
+	 * @param coordinates Coordenadas no formato "latitude,longitude" (por exemplo, "12.34,56.78").
+	 * @return Detalhes da integração OpenCage.
+	 * @throws IntegrationException Se ocorrer um erro durante a integração.
+	 */
 	@GetMapping(Endpoints.OPEN_CAGE_INTEGRATION)
 	public ResponseEntity<OpencageIntegrationModel> makeIntegration(@RequestParam String coordinates)
 			throws IntegrationException {
@@ -57,16 +64,22 @@ public class OpenCageIntegrationController {
 		}
 	}
 
+	/**
+	 * Endpoint para registrar um endereço por meio da integração com o serviço OpenCage.
+	 *
+	 * @param coords Coordenadas no formato de um objeto JSON contendo latitude e longitude.
+	 * @return Detalhes do endereço e informações adicionais.
+	 * @throws ChallangeException Se ocorrer um erro durante o processo de registro ou integração.
+	 */
 	@PostMapping(Endpoints.REGISTER_OPEN_CAGE_INTEGRATION)
-	public ResponseEntity<OpencageDTOPOST> adicionaEnderecoPorIntegracao(@RequestBody @Valid CoordinatesModel coords)
-			throws ChallangeException {
-		OpencageIntegrationModel response = OpencageIntegration.makeIntegration(coords.getLatitudade(),
-				coords.getLongitude());
+	public ResponseEntity<OpencageDTOPOST> adicionaEnderecoPorIntegracao(@RequestBody @Valid CoordinatesModel coords) throws ChallangeException {
+		OpencageIntegrationModel response = OpencageIntegration.makeIntegration(coords.getLatitudade(), coords.getLongitude());
 
 		if (response == null) {
 			throw new IntegrationException(
 					"[ERRO DE INTEGRAÇÃO] - Nenhum registro foi encontrado para essas coordenadas.",
-					"(prepareResponse)", 500);
+					"(prepareResponse)",
+					500);
 		}
 
 		EnderecoEntity endereco = ConversionService.mapOpencageResponseToEnderecoEntity(response);
@@ -82,15 +95,7 @@ public class OpenCageIntegrationController {
 			statusCombustivel.setTipoCombustivelId(abastecimento.getTipoCombustivelId());
 			
 			Long randomNumber = ConversionService.getRandomValue();
-			String qualidadeCombustivel = "";
-			
-			if (randomNumber.intValue() >= 0 || randomNumber.intValue() <= 2) {
-				qualidadeCombustivel = "Ruim";
-			} else if (randomNumber.intValue() >= 3 || randomNumber.intValue() <= 5) {
-				qualidadeCombustivel = "Médio";
-			} else {
-				qualidadeCombustivel = "Bom";
-			}
+			String qualidadeCombustivel = ConversionService.getGasQuality(randomNumber);
 			
 			statusCombustivel.setQualidade(qualidadeCombustivel);
 			statusCombustivelSaved = statusCombustivelRepository.save(statusCombustivel);

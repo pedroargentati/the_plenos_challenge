@@ -13,8 +13,17 @@ import br.com.fiap.challange.model.OpencageIntegrationModel;
 
 public class OpencageIntegration {
 	
+    // Chave da API do OpenCage
 	public static final String API_KEY = "91c4f0a5aafc407bb4576f286d507dc7";
 
+    /**
+     * Realiza a integração com o serviço OpenCage para obter informações com base nas coordenadas.
+     *
+     * @param latitude  Latitude da localização.
+     * @param longitude Longitude da localização.
+     * @return Objeto OpencageIntegrationModel com as informações obtidas da integração.
+     * @throws IntegrationException Se ocorrer um erro durante a integração.
+     */
 	public static OpencageIntegrationModel makeIntegration(Double latitude, Double longitude) throws IntegrationException {
 		JOpenCageGeocoder jOpenCageGeocoder = new JOpenCageGeocoder(API_KEY);
 
@@ -27,6 +36,13 @@ public class OpencageIntegration {
 		return openCageResponseFormatted;
 	}
 	
+    /**
+     * Prepara a resposta da integração do OpenCage e mapeia os dados para o modelo OpencageIntegrationModel.
+     *
+     * @param response Resposta da requisição ao OpenCage.
+     * @return Objeto OpencageIntegrationModel com os dados formatados da resposta.
+     * @throws IntegrationException Se ocorrer um erro ao preparar a resposta.
+     */
 	private static OpencageIntegrationModel prepareResponse(JOpenCageResponse response) throws IntegrationException {
 		OpencageIntegrationModel opencageIntegrationModel = new OpencageIntegrationModel();
 		
